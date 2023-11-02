@@ -26,6 +26,7 @@ class Run:
 
     @staticmethod
     def enter(bird, e):
+        bird.dir = -1 if bird.face_dir == 1 else 1
         pass
 
     @staticmethod
@@ -41,7 +42,10 @@ class Run:
 
     @staticmethod
     def draw(bird):
-        bird.image.clip_composite_draw(int(bird.frame) * 183, 336, 180, 168, 0, 'h', bird.x, bird.y, 100, 100)
+        if bird.face_dir == 0:
+            bird.image.clip_draw(int(bird.frame) * 183, 336, 180, 168, bird.x, bird.y, 100, 100)
+        elif bird.face_dir == 1:
+            bird.image.clip_composite_draw(int(bird.frame) * 183, 336, 180, 168, 0, 'h', bird.x, bird.y, 100, 100)
 
 
 class StateMachine:
@@ -79,8 +83,7 @@ class Bird:
     def __init__(self):
         self.x, self.y = random.randint(100, 1600), random.randint(300, 500)
         self.frame = 0
-        self.action = 3
-        self.face_dir = 1
+        self.face_dir = random.randint(0, 1)   # 0 오른쪽 , 1 왼쪽
         self.dir = 0
         self.image = load_image('bird_animation.png')
         self.state_machine = StateMachine(self)
