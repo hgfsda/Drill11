@@ -1,6 +1,6 @@
 # 이것은 각 상태들을 객체로 구현한 것임.
 
-from pico2d import get_time, load_image, load_font, clamp
+from pico2d import load_image
 import game_framework
 import random
 
@@ -37,7 +37,12 @@ class Run:
     def do(bird):
         bird.frame = (bird.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 5
         bird.x += bird.dir * RUN_SPEED_PPS * game_framework.frame_time
-        bird.x = clamp(25, bird.x, 1600-25)
+        if bird.x <= 25:
+            bird.face_dir = 0
+            bird.dir = 1
+        elif bird.x >= 1600 - 25:
+            bird.face_dir = 1
+            bird.dir = -1
 
 
     @staticmethod
