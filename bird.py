@@ -34,14 +34,14 @@ class Run:
 
     @staticmethod
     def do(bird):
-        bird.frame = (bird.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
+        bird.frame = (bird.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 5
         bird.x += bird.dir * RUN_SPEED_PPS * game_framework.frame_time
         bird.x = clamp(25, bird.x, 1600-25)
 
 
     @staticmethod
     def draw(bird):
-        bird.image.clip_composite_draw(int(bird.frame) * 183, 336, 180, 168, 0, 'h', bird.x, bird.y, 135, 135)
+        bird.image.clip_composite_draw(int(bird.frame) * 183, 336, 180, 168, 0, 'h', bird.x, bird.y, 100, 100)
 
 
 class StateMachine:
